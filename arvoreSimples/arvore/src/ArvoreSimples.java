@@ -70,17 +70,6 @@ public class ArvoreSimples {
 		Object temp = v.element();
 		v.setElement(w.element());
 		w.setElement(temp);
-		/*
-		 * duvida sobre a ordem que o elemento deve ficar na arvore nao alteraria a
-		 * logica da arvore e a deixaria de forma errada?
-		 */
-		/*
-		 * M�todo que serve de exerc�cio
-		 * Este m�todo dever� fazer com que o objeto
-		 * que estava na posi��o v fique na posi��o w
-		 * e fazer com que o objeto que estava na posi��o w
-		 * fique na posi��o v
-		 */
 
 	}
 
