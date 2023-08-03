@@ -1,17 +1,24 @@
 
 public class testePilha {
     public static void main(String[] args) throws Exception {
-        pilhaVector pilhaVector = new pilhaVector();
-        System.out.println("Hello, World!");
+        pilhaVector p = new pilhaVector();
 
-        for (int i = 0; i < 20; i++) {
-            pilhaVector.push(12);
+        p.push(1);
+        p.push(2);
+        p.push(3);
+        p.push(4);
+        p.push(5);
+        p.push(4);
+        p.push(4);
+        p.push(4);
+        p.push(4);
+        p.push(4);
+        p.push(4);
+
+        while (!p.isEmpty()) {
+            int elemento = (int) p.pop();
+            System.out.println("desempilhei" + elemento);
         }
-
-        pilhaVector.top();
-
-        System.out.println(pilhaVector.toString());
-        pilhaVector.size();
 
     }
 }

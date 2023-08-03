@@ -59,7 +59,7 @@ public class ArvoreSimples {
 		if (pai != null || isExternal(v))
 			pai.removeChild(v);
 		else
-			throw new InvalidNoException();
+			throw new InvalidNoException(null);
 		Object o = v.element();
 		tamanho--;
 		return o;
@@ -99,8 +99,11 @@ public class ArvoreSimples {
 			return 0;
 		else {
 			int h = 0;
-			for (No w : children(v))
-				h = Math.max(h, altura(w));
+			Iterator children = v.children();
+			while (children.hasNext()) {
+				No filho = (No) children.next();
+				h = Math.max(h, altura());
+			}
 			return 1 + h;
 		}
 
@@ -108,28 +111,17 @@ public class ArvoreSimples {
 
 	/** Retorna um iterator com os elementos armazenados na �rvore */
 	public Iterator elements() {
-		// M�todo que serve de exerc�cio
 		return null;
+		// M�todo que serve de exerc�cio
+
 	}
 
-	/** Retorna um iterator com as posi��es (Nos) da �rvore */
-	public Iterator Nos() {
+	/** Retorna um iterator com as posi��es (Nos) da arvore */
 
 	// M�todo que serve de exerc�cio
 	public Iterator Nos() {
-		List<No> list = new ArrayList<>();
-		preorder(raiz, list);
-		return list.iterator();
-	}
 
-	private void preorder(No v, List<No> list) {
-		if (v != null) {
-			list.add(v);
-			preorder(v.left(), list);
-			preorder(v.right(), list);
-		}
-	}
-
+		return null;
 	}
 
 	/**
@@ -137,7 +129,23 @@ public class ArvoreSimples {
 	 */
 	public int size() {
 		// M�todo que serve de exerc�cio
-		return 0;
+
+		return tamanhoArvore(raiz);
+	}
+
+	private int tamanhoArvore(No v) {
+		if (isExternal(v))
+			return 1;
+		else {
+			int tamanho = 0;
+			Iterator children = v.children();
+			while (children.hasNext()) {
+				No filho = (No) children.next();
+				tamanho += tamanhoArvore(filho);
+			}
+			return 1 + tamanho;
+		}
+
 	}
 
 	/**
