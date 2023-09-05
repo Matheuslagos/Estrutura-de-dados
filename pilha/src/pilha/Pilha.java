@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pilha;
 
-/**
- *
- * @author 20211014040020
- */
+
 public class Pilha implements Ipilha{
     static final int MAX = 1000;
     int top;
@@ -16,11 +8,15 @@ public class Pilha implements Ipilha{
     
     Pilha(){
     top = -1;
-    }
-    
+    }    
     
     public boolean isEmpty(){
-        return (top<0);
+        if(top != -1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public Object pop(){
@@ -40,10 +36,7 @@ public class Pilha implements Ipilha{
         }
         else{
             a[++top] = x;
-            return true;
         }
-        
-        
     }
 
     public int size(){
@@ -52,16 +45,22 @@ public class Pilha implements Ipilha{
             return 0;
         }
         else {
-            return a[top];
+            return this.top + 1;
         }
     }
 
     public Object top(){
-        return null;
+        if (isEmpty() == true)
+            return null;
+        else {
+            return this.a[this.top];
+        }
+    }
+
+    public void adicionaPilha(Pilha a){
+       
+        
+
+
     }
 }
-
-   
-    
-    
-
