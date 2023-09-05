@@ -18,4 +18,5 @@ public interface Ipilha {
 
     Object top();
     
+    public void adicionaPilha(Pilha a);
 }
