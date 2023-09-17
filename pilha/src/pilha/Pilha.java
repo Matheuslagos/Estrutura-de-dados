@@ -1,6 +1,5 @@
 package pilha;
 
-
 public class Pilha implements Ipilha{
     static final int MAX = 1000;
     int top;
