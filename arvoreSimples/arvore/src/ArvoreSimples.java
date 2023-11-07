@@ -1,204 +1,176 @@
 import java.util.Iterator;
+import java.security.spec.DSAGenParameterSpec;
 import java.util.ArrayList;
-import java.util.List;
-
-public class ArvoreSimples {
-	// Atributos da �rvore
+public class ArvoreSimples 
+{
+	//Atributos da árvore
 	No raiz;
 	int tamanho;
-
-	// Construtor
-	public ArvoreSimples(Object o) {
+	//Construtor
+	public ArvoreSimples(Object o)
+	{
 		raiz = new No(null, o);
 		tamanho = 1;
 	}
-
-	/** Retorna a raiz da �rvore */
-	public No root() {
+	/** Retorna a raiz da árvore */
+	public No root()
+	{
 		return raiz;
 	}
-
-	/** Retorna o No pai de um No */
-	public No parent(No v) {
+	/* Retorna o No pai de um No */
+	public No parent(No v)
+	{
 		return (v.parent());
 	}
 
 	/** retorna os filhos de um No */
-	public Iterator children(No v) {
+	public Iterator children(No v)
+	{
 		return v.children();
 	}
-
-	/** Testa se um No � interno */
-	public boolean isInternal(No v) {
+	/** Testa se um No é interno */
+	public boolean isInternal(No v)
+	{
 		return (v.childrenNumber() > 0);
 	}
-
-	/** Testa se um No � externo */
-	public boolean isExternal(No v) {
+	/** Testa se um No é externo*/
+	public boolean isExternal(No v)
+	{
 		return (v.childrenNumber() == 0);
 	}
-
-	/** Testa se um No � a raiz */
-	public boolean isRoot(No v) {
+	/** Testa se um No é a raiz */
+	public boolean isRoot(No v)
+	{
 		return v == raiz;
 	}
-
 	/** Adiciona um filho a um No */
-	public void addChild(No v, Object o) {
+	public void addChild(No v, Object o)
+	{
 		No novo = new No(v, o);
 		v.addChild(novo);
 		tamanho++;
 	}
-
-	/**
-	 * Remove um No
-	 * S� pode remover Nos externos e que tenham um pai (n�o seja raiz)
-	 */
-	public Object remove(No v) throws InvalidNoException {
+	/** Remove um No
+	 *  Só pode remover Nos externos e que tenham um pai (não seja raiz)
+	*/
+	public Object remove(No v) throws InvalidNoException
+	{
 		No pai = v.parent();
 		if (pai != null || isExternal(v))
 			pai.removeChild(v);
 		else
-			throw new InvalidNoException(null);
+			throw new InvalidNoException("InvalidNoException");
 		Object o = v.element();
 		tamanho--;
 		return o;
 	}
-
-	/** Troca dois elementos de posi��o */
-	public void swapElements(No v, No w) {
+	/** Troca dois elementos de posição */
+	public void swapElements(No v, No w)
+	{
 		Object temp = v.element();
-		v.setElement(w.element());
-		w.setElement(temp);
-
+        v.setElement(w.element());
+        w.setElement(temp);
+		
 	}
-
 	/** Retorna a profundidade de um No */
-	public int depth(No v) {
+	public int depth(No v)
+	{
 		int profundidade = profundidade(v);
 		return profundidade;
 	}
 
-	/* como funciona o parent, ele liga o node ao parente ancestral mais proximo? */
-	private int profundidade(No v) {
+	private int profundidade(No v)
+	{
 		if (v == raiz)
 			return 0;
 		else
 			return 1 + profundidade(v.parent());
 	}
 
-	/** Retorna a altura da �rvore */
-	public int height() {
-		// M�todo que serve de exerc�cio
-		int altura = altura(raiz);
-		return altura;
+	/** Retorna a altura da árvore */
+	public int height()
+	{
+		return altura(raiz);
 	}
+    private int altura(No v){
+        int altura = 0;
+        for(Iterator<No> it=Nos();it.hasNext();){
+            No w = it.next();
+            if(isExternal(w)){
+                altura = Math.max(altura, depth(w));
+            }
+        }
+        return altura;
+        
+    }
 
-	public int altura(No v) {
-		if (isExternal(v))
-			return 0;
-		else {
-			int h = 0;
-			Iterator children = v.children();
-			while (children.hasNext()) {
-				No filho = (No) children.next();
-				h = Math.max(h, altura());
-			}
-			return 1 + h;
-		}
-
-	}
-
-	/** Retorna um iterator com os elementos armazenados na �rvore */
-	public Iterator elements() {
-		return null;
-		// M�todo que serve de exerc�cio
-
-	}
-
-	/** Retorna um iterator com as posi��es (Nos) da arvore */
-
-	// M�todo que serve de exerc�cio
-	public Iterator Nos() {
-
+	/** Retorna um iterator com os elementos armazenados na árvore */
+	public Iterator elements()
+	{
+		// Método que serve de exercício
 		return null;
 	}
-
-	/**
-	 * Retorna o n�mero de Nos da �rvore
-	 */
-	public int size() {
-		// M�todo que serve de exerc�cio
-
-		return tamanhoArvore(raiz);
+	/** Retorna um iterator com as posições (Nos) da árvore */
+	public Iterator Nos()
+	{
+		// Método que serve de exercício
+		return null;
 	}
-
-	private int tamanhoArvore(No v) {
-		if (isExternal(v))
-			return 1;
-		else {
-			int tamanho = 0;
-			Iterator children = v.children();
-			while (children.hasNext()) {
-				No filho = (No) children.next();
-				tamanho += tamanhoArvore(filho);
-			}
-			return 1 + tamanho;
-		}
-
-	}
-
-	/**
-	 * Retorna se a �vore est� vazia. Sempre vai ser falso, pois n�o permitimos
-	 * remover a raiz
+	/** Retorna o número de Nos da árvore
 	 */
-	public boolean isEmpty() {
+	public int size()
+	{
+		return tamanho;
+	}
+	/** Retorna se a ávore está vazia. Sempre vai ser falso, pois não permitimos remover a raiz
+	 */
+	public boolean isEmpty()
+	{
 		return false;
 	}
-
-	public Object replace(No v, Object o) {
-		// M�todo que serve de exerc�cio
-		Object temp = v.element();
-		v.setElement(o);
-		return null;
+	public Object replace(No v, Object o)
+	{
+        Object oldElement = v.element();
+        v.setElement(o);
+		return oldElement;
 	}
-
-	/* In�cio da classe aninhada para armazenar o No */
-	public class No {
+	/* Início da classe aninhada para armazenar o No*/
+	public class No 
+	{
 		private Object o;
 		private No pai;
 		private ArrayList filhos = new ArrayList();
-
-		public No(No pai, Object o) {
+		public No(No pai, Object o)
+		{
 			this.pai = pai;
 			this.o = o;
 		}
-
-		public Object element() {
+		public Object element()
+		{
 			return o;
 		}
-
-		public No parent() {
+		public No parent()
+		{
 			return pai;
 		}
-
-		public void setElement(Object o) {
+		public void setElement(Object o)
+		{
 			this.o = o;
 		}
-
-		public void addChild(No o) {
+		public void addChild(No o)
+		{
 			filhos.add(o);
 		}
-
-		public void removeChild(No o) {
+		public void removeChild(No o)
+		{
 			filhos.remove(o);
 		}
-
-		public int childrenNumber() {
+		public int childrenNumber()
+		{
 			return filhos.size();
 		}
-
-		public Iterator children() {
+		public Iterator children()
+		{
 			return filhos.iterator();
 		}
 	}
