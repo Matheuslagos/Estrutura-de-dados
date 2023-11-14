@@ -6,7 +6,7 @@ public interface IArvoreBinariaPesquisa {
 
 	Comparador getComparador();
 
-	no pesquisar(no no, Object key);
+	no pesquisar(No no, Object key);
 
 	no incluir(Object key);
 
@@ -14,17 +14,17 @@ public interface IArvoreBinariaPesquisa {
 
 	no getRaiz();
 
-	void setRaiz(no p);
+	void setRaiz(No p);
 
-	void emOrdem(no no);
+	void emOrdem(No no);
 
-	void preOrdem(no no);
+	void preOrdem(No no);
 
-	void posOrdem(no no);
+	void posOrdem(No no);
 
-	int altura(no no);
+	int altura(No no);
 
-	int profundidade(no no);
+	int profundidade(No no);
 
 	void mostrar();
 
