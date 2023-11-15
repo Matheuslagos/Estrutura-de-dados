@@ -6,13 +6,13 @@ public interface IArvoreBinariaPesquisa {
 
 	Comparador getComparador();
 
-	no pesquisar(No no, Object key);
+	No pesquisar(No no, Object key);
 
-	no incluir(Object key);
+	No incluir(Object key);
 
 	Object remover(Object key);
 
-	no getRaiz();
+	No getRaiz();
 
 	void setRaiz(No p);
 

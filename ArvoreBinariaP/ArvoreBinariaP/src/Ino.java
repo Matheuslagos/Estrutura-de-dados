@@ -9,9 +9,9 @@ public interface Ino {
 
 	Object getChave();
 
-	void setFilhoDireito(no fD);
+	void setFilhoDireito(No fD);
 
-	void setFilhoEsquerdo(no fE);
+	void setFilhoEsquerdo(No fE);
 
 	void setPai(Ino pai);
 

@@ -35,13 +35,13 @@ public class No implements Ino {
     }
 
     @Override
-    public void setFilhoDireito(No fD) {
-        this.filhoDireito = fD;
+    public void setFilhoDireito(No filhodireito) {
+        this.filhoDireito = filhodireito;
     }
 
     @Override
-    public void setFilhoEsquerdo(No fE) {
-        this.filhoEsquerdo = fE;
+    public void setFilhoEsquerdo(No filhoesquerdo) {
+        this.filhoEsquerdo = filhoesquerdo;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class No implements Ino {
     }
 
     @Override
-    public void setChave(Object ch) {
-        this.chave = ch;
+    public void setChave(Object chave) {
+        this.chave = chave;
     }
 }
