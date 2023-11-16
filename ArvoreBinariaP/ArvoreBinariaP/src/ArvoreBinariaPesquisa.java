@@ -1,7 +1,8 @@
 import java.util.Iterator;
 
 class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
-
+    private No raiz;
+    
     @Override
     public void setComparator(Comparador c) {
         // TODO Auto-generated method stub
@@ -34,14 +35,12 @@ class ArvoreBinariaPesquisa implements IArvoreBinariaPesquisa {
 
     @Override
     public No getRaiz() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRaiz'");
+        return this.raiz;
     }
 
     @Override
     public void setRaiz(No p) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRaiz'");
+        this.raiz = p;
     }
 
     @Override
