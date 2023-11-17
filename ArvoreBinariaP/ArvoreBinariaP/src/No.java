@@ -1,8 +1,8 @@
-public class No implements Ino {
+public class No{
 
-    private Ino filhoDireito;
-    private Ino filhoEsquerdo;
-    private Ino pai;
+    private No filhoDireito;
+    private No filhoEsquerdo;
+    private No pai;
     private Object chave;
 
     // Construtor
@@ -12,44 +12,42 @@ public class No implements Ino {
         this.filhoEsquerdo = null;
         this.pai = null;
     }
-
-    // Métodos da interface Ino
-    @Override
-    public Ino getFilhoDireito() {
+    
+    public No getFilhoDireito() {
         return this.filhoDireito;
     }
 
-    @Override
-    public Ino getFilhoEsquerdo() {
+    
+    public No getFilhoEsquerdo() {
         return this.filhoEsquerdo;
     }
 
-    @Override
-    public Ino getPai() {
+    
+    public No getPai() {
         return this.pai;
     }
 
-    @Override
+    
     public Object getChave() {
         return this.chave;
     }
 
-    @Override
+    
     public void setFilhoDireito(No filhodireito) {
         this.filhoDireito = filhodireito;
     }
 
-    @Override
+    
     public void setFilhoEsquerdo(No filhoesquerdo) {
         this.filhoEsquerdo = filhoesquerdo;
     }
 
-    @Override
-    public void setPai(Ino pai) {
+    
+    public void setPai(No pai) {
         this.pai = pai;
     }
 
-    @Override
+    
     public void setChave(Object chave) {
         this.chave = chave;
     }
