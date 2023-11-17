@@ -22,8 +22,17 @@ class ArvoreBinariaPesquisa {
     }
 
     public No pesquisar(No no, Object chave) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'pesquisar'");
+        int comparacao = comparador.comparar(chave, no.getChave());
+        if (comparacao == 0){
+            return no;
+        }
+        else if(comparacao < 0){
+            return pesquisar(no.getFilhoEsquerdo(),chave);
+        }
+        else{
+            return pesquisar(no.getFilhoDireito(), chave);
+        }
+        
     }
 
    
@@ -84,7 +93,7 @@ class ArvoreBinariaPesquisa {
 
    
     public void mostrar() {
-        
+
         throw new UnsupportedOperationException("Unimplemented method 'mostrar'");
     }
 
