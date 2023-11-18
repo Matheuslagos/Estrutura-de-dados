@@ -70,7 +70,6 @@ class ArvoreBinariaPesquisa {
 
     public Object remover(Object chave) {
 
-        throw new UnsupportedOperationException("Unimplemented method 'remover'");
     }
 
     public void emOrdem(No no) {
