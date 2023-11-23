@@ -1,8 +1,11 @@
 import java.util.Iterator;
 
+/*CRIAR 2 ARRAYLIST PARA O ITERATOR */
+
 class ArvoreBinariaPesquisa {
     private No raiz;
     private Comparador comparador;
+    private int size;
 
     public ArvoreBinariaPesquisa(Comparador comparador) {
         this.comparador = comparador;
@@ -33,6 +36,7 @@ class ArvoreBinariaPesquisa {
         if (no == null || chave == null) {
             return null;
         }
+
         int comparacao = comparador.comparar(chave, no.getChave());
         if (comparacao == 0) {
             return no;
@@ -41,7 +45,6 @@ class ArvoreBinariaPesquisa {
         } else {
             return pesquisaRecursiva(no.getFilhoDireito(), chave);
         }
-
     }
 
     public No incluir(Object chave) {
@@ -64,12 +67,13 @@ class ArvoreBinariaPesquisa {
             no.setFilhoDireito(incluirRecursivo(no.getFilhoDireito(), chave));
             no.getFilhoDireito().setPai(no);
         }
-
+        size++;
         return no;
     }
 
     public Object remover(Object chave) {
-
+        /** PARA REMOVER UM AVÔ COM 2 FILHOS EU VOU PARA O FILHO MENOR E FAÇO UM INORDER O PRIMEIRO NO VAI SER O SUBSTITUTO DO FILHO DO AVO, */
+        size--;
     }
 
     public void emOrdem(No no) {
@@ -91,14 +95,18 @@ class ArvoreBinariaPesquisa {
         throw new UnsupportedOperationException("Unimplemented method 'posOrdem'");
     }
 
-    public int altura(No no) {
+    public int altura(no.getRaiz) {
+        int h=0;
+        for()
 
-        throw new UnsupportedOperationException("Unimplemented method 'altura'");
     }
 
     public int profundidade(No no) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'profundidade'");
+        if(getRaiz()==no){
+            return 0;
+        }else{
+            return 1+profundidade(no.getPai());
+        }
     }
 
     public void mostrar() {
@@ -108,22 +116,20 @@ class ArvoreBinariaPesquisa {
 
     public Iterator nos() {
 
-        throw new UnsupportedOperationException("Unimplemented method 'nos'");
+        
     }
 
     public Iterator elements() {
 
-        throw new UnsupportedOperationException("Unimplemented method 'elements'");
+        
     }
 
     public int size() {
-
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return size;        
     }
 
     public boolean isEmpty() {
-
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return size == 0;
     }
 
 }
