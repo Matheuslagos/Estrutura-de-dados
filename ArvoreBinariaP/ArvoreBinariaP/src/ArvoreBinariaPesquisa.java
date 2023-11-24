@@ -95,10 +95,14 @@ class ArvoreBinariaPesquisa {
         throw new UnsupportedOperationException("Unimplemented method 'posOrdem'");
     }
 
-    public int altura(no.getRaiz) {
-        int h=0;
-        for()
-
+    public int altura(No no) {
+    if (no == null) {
+        return 0;
+    } else {
+        int alturaEsquerda = altura(no.getFilhoEsquerdo());
+        int alturaDireita = altura(no.getFilhoDireito());
+        return Math.max(alturaEsquerda, alturaDireita) + 1;
+        }
     }
 
     public int profundidade(No no) {
