@@ -183,13 +183,32 @@ private void preencherMatriz(String[][] matriz, No no, int nivel, int inicio, in
 }
 
     public Iterator nos() {
-
+        ArrayList<No> listaNos = new ArrayList<>();
+        coletarNos(raiz, listaNos);
+        return listaNos.iterator();
         
     }
+    private void coletarNos(No no, ArrayList<No> listaNos) {
+        if (no != null) {
+            coletarNos(no.getFilhoEsquerdo(), listaNos);
+            listaNos.add(no);
+            coletarNos(no.getFilhoDireito(), listaNos);
+        }
+    }
 
-    public Iterator elements() {
 
-        
+   public Iterator<Object> elements() {
+        ArrayList<Object> listaElementos = new ArrayList<>();
+        coletarElementos(raiz, listaElementos);
+        return listaElementos.iterator();
+    }
+
+    private void coletarElementos(No no, ArrayList<Object> listaElementos) {
+        if (no != null) {
+            coletarElementos(no.getFilhoEsquerdo(), listaElementos);
+            listaElementos.add(no.getChave());
+            coletarElementos(no.getFilhoDireito(), listaElementos);
+        }
     }
 
     public int size() {
