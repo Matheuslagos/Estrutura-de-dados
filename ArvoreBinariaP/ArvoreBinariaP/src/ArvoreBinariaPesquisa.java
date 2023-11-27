@@ -72,9 +72,42 @@ class ArvoreBinariaPesquisa {
     }
 
     public Object remover(Object chave) {
-        /** PARA REMOVER UM AVÔ COM 2 FILHOS EU VOU PARA O FILHO MENOR E FAÇO UM INORDER O PRIMEIRO NO VAI SER O SUBSTITUTO DO FILHO DO AVO, */
-        size--;
+    raiz = removerRecursivo(raiz, chave);
+    return chave;
+}
+
+private No removerRecursivo(No no, Object chave) {
+    if (no == null) {
+        return null; // Chave não encontrada, nada a fazer
     }
+
+    int comparacao = comparador.comparar(chave, no.getChave());
+
+    if (comparacao < 0) {
+        no.setFilhoEsquerdo(removerRecursivo(no.getFilhoEsquerdo(), chave));
+    } else if (comparacao > 0) {
+        no.setFilhoDireito(removerRecursivo(no.getFilhoDireito(), chave));
+    } else {
+        // Caso 1 e 2: Nó a ser removido encontrado
+        if (no.getFilhoEsquerdo() == null) {
+            size--;
+            return no.getFilhoDireito();
+        } else if (no.getFilhoDireito() == null) {
+            size--;
+            return no.getFilhoEsquerdo();
+        }
+
+        // Caso 3: Nó a ser removido tem dois filhos
+        no.setChave(encontrarMenorChave(no.getFilhoDireito()));
+        no.setFilhoDireito(removerRecursivo(no.getFilhoDireito(), no.getChave()));
+    }
+
+    return no;
+}
+
+private Object encontrarMenorChave(No no) {
+    return (no.getFilhoEsquerdo() == null) ? no.getChave() : encontrarMenorChave(no.getFilhoEsquerdo());
+}
 
     public void emOrdem(No no) {
         if (no != null) {
@@ -114,9 +147,40 @@ class ArvoreBinariaPesquisa {
     }
 
     public void mostrar() {
-
-        throw new UnsupportedOperationException("Unimplemented method 'mostrar'");
+    if (raiz == null) {
+        System.out.println("A árvore está vazia.");
+        return;
     }
+
+    int altura = altura(raiz);
+    int largura = (int) Math.pow(2, altura) - 1;
+
+    // Inicializar matriz para armazenar os valores dos nós
+    String[][] matriz = new String[altura][largura];
+    for (String[] linha : matriz) {
+        Arrays.fill(linha, "    ");
+    }
+
+    // Preencher a matriz com os valores dos nós
+    preencherMatriz(matriz, raiz, 0, 0, largura / 2);
+
+    // Imprimir a matriz
+    for (String[] linha : matriz) {
+        for (String valor : linha) {
+            System.out.print(valor);
+        }
+        System.out.println();
+    }
+}
+
+private void preencherMatriz(String[][] matriz, No no, int nivel, int inicio, int fim) {
+    if (no != null) {
+        int meio = (inicio + fim) / 2;
+        matriz[nivel][meio] = String.valueOf(no.getChave());
+        preencherMatriz(matriz, no.getFilhoEsquerdo(), nivel + 1, inicio, meio - 1);
+        preencherMatriz(matriz, no.getFilhoDireito(), nivel + 1, meio + 1, fim);
+    }
+}
 
     public Iterator nos() {
 
