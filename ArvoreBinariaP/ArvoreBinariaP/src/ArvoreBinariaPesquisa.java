@@ -55,6 +55,7 @@ class ArvoreBinariaPesquisa {
 
     private No incluirRecursivo(No no, Object chave) {
         if (no == null) {
+            size++;
             return new No(chave);
         }
 
@@ -67,128 +68,142 @@ class ArvoreBinariaPesquisa {
             no.setFilhoDireito(incluirRecursivo(no.getFilhoDireito(), chave));
             no.getFilhoDireito().setPai(no);
         }
-        size++;
+
         return no;
     }
 
-public Object remover(Object chave) {
-    raiz = removerRecursivo(raiz, chave);
-    return chave;
-}
-
-private No removerRecursivo(No no, Object chave) {
-    if (no == null) {
-        return null; // Chave não encontrada, nada a fazer
+    public Object remover(Object chave) {
+        raiz = removerRecursivo(raiz, chave);
+        return chave;
     }
 
-    int comparacao = comparador.comparar(chave, no.getChave());
-
-    if (comparacao < 0) {
-        no.setFilhoEsquerdo(removerRecursivo(no.getFilhoEsquerdo(), chave));
-    } else if (comparacao > 0) {
-        no.setFilhoDireito(removerRecursivo(no.getFilhoDireito(), chave));
-    } else {
-        // Caso 1 e 2: Nó a ser removido encontrado
-        if (no.getFilhoEsquerdo() == null) {
-            size--;
-            return no.getFilhoDireito();
-        } else if (no.getFilhoDireito() == null) {
-            size--;
-            return no.getFilhoEsquerdo();
+    private No removerRecursivo(No no, Object chave) {
+        if (no == null) {
+            return null; // Chave não encontrada, nada a fazer
         }
 
-        // Caso 3: Nó a ser removido tem dois filhos
-        no.setChave(encontrarMenorChave(no.getFilhoDireito()));
-        no.setFilhoDireito(removerRecursivo(no.getFilhoDireito(), no.getChave()));
+        int comparacao = comparador.comparar(chave, no.getChave());
+
+        if (comparacao < 0) {
+            no.setFilhoEsquerdo(removerRecursivo(no.getFilhoEsquerdo(), chave));
+        } else if (comparacao > 0) {
+            no.setFilhoDireito(removerRecursivo(no.getFilhoDireito(), chave));
+        } else {
+            // Caso 1 e 2: Nó a ser removido encontrado
+            if (no.getFilhoEsquerdo() == null) {
+                size--;
+                return no.getFilhoDireito();
+            } else if (no.getFilhoDireito() == null) {
+                size--;
+                return no.getFilhoEsquerdo();
+            }
+
+            // Caso 3: Nó a ser removido tem dois filhos
+            no.setChave(encontrarMenorChave(no.getFilhoDireito()));
+            no.setFilhoDireito(removerRecursivo(no.getFilhoDireito(), no.getChave()));
+        }
+
+        return no;
     }
 
-    return no;
-}
-
-private Object encontrarMenorChave(No no) {
-    return (no.getFilhoEsquerdo() == null) ? no.getChave() : encontrarMenorChave(no.getFilhoEsquerdo());
-}
+    private Object encontrarMenorChave(No no) {
+        return (no.getFilhoEsquerdo() == null) ? no.getChave() : encontrarMenorChave(no.getFilhoEsquerdo());
+    }
 
     public void emOrdem(No no) {
         if (no != null) {
             emOrdem(no.getFilhoEsquerdo());
-            System.out.print(" "+no.getChave());
+            System.out.println(no.getChave());
             emOrdem(no.getFilhoDireito());
         }
 
     }
 
-    public void preOrdem(No no) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'preOrdem'");
+    public void preOrdem() {
+        preOrdemRecursivo(raiz);
     }
 
-    public void posOrdem(No no) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'posOrdem'");
-    }
-
-    public int altura(No no) {
-    if (no == null) {
-        return 0;
-    } else {
-        int alturaEsquerda = altura(no.getFilhoEsquerdo());
-        int alturaDireita = altura(no.getFilhoDireito());
-        return Math.max(alturaEsquerda, alturaDireita) + 1;
+    private void preOrdemRecursivo(No no) {
+        if (no != null) {
+            System.out.print(no.getChave() + " "); // Visita o nó raiz
+            preOrdemRecursivo(no.getFilhoEsquerdo()); // Percorre a subárvore esquerda
+            preOrdemRecursivo(no.getFilhoDireito()); // Percorre a subárvore direita
         }
     }
 
+    public void posOrdem() {
+        posOrdemRecursivo(raiz);
+    }
+
+    private void posOrdemRecursivo(No no) {
+        if (no != null) {
+            posOrdemRecursivo(no.getFilhoEsquerdo()); // Percorre a subárvore esquerda
+            posOrdemRecursivo(no.getFilhoDireito()); // Percorre a subárvore direita
+            System.out.print(no.getChave() + " "); // Visita o nó raiz por último
+        }
+    }
+
+    public int altura(No no) {
+        if (no == null) {
+            return 0;
+        } else {
+            int alturaEsquerda = altura(no.getFilhoEsquerdo());
+            int alturaDireita = altura(no.getFilhoDireito());
+            return Math.max(alturaEsquerda, alturaDireita) + 1;
+        }
+    }
 
     public int profundidade(No no) {
-        if(getRaiz()==no){
+        if (getRaiz() == no) {
             return 0;
-        }else{
-            return 1+profundidade(no.getPai());
+        } else {
+            return 1 + profundidade(no.getPai());
         }
     }
 
     public void mostrar() {
-    if (raiz == null) {
-        System.out.println("A árvore está vazia.");
-        return;
-    }
-
-    int altura = altura(raiz);
-    int largura = (int) Math.pow(2, altura) - 1;
-
-    // Inicializar matriz para armazenar os valores dos nós
-    String[][] matriz = new String[altura][largura];
-    for (String[] linha : matriz) {
-        Arrays.fill(linha, "  ");
-    }
-
-    // Preencher a matriz com os valores dos nós
-    preencherMatriz(matriz, raiz, 0, 0, largura / 2);
-
-    // Imprimir a matriz
-    for (String[] linha : matriz) {
-        for (String valor : linha) {
-            System.out.print(valor);
+        if (raiz == null) {
+            System.out.println("A árvore está vazia.");
+            return;
         }
-        System.out.println();
-    }
-}
 
-private void preencherMatriz(String[][] matriz, No no, int nivel, int inicio, int fim) {
-    if (no != null) {
-        int meio = (inicio + fim) / 2;
-        matriz[nivel][meio] = String.valueOf(no.getChave());
-        preencherMatriz(matriz, no.getFilhoEsquerdo(), nivel + 1, inicio, meio - 1);
-        preencherMatriz(matriz, no.getFilhoDireito(), nivel + 1, meio + 1, fim);
+        int altura = altura(raiz);
+        int largura = (int) Math.pow(2, altura + 1) - 1; // Ajuste na fórmula
+
+        // Inicializar matriz para armazenar os valores dos nós
+        String[][] matriz = new String[altura + 1][largura];
+        for (String[] linha : matriz) {
+            Arrays.fill(linha, "   ");
+        }
+
+        // Preencher a matriz com os valores dos nós
+        preencherMatriz(matriz, raiz, 0, 0, largura / 2);
+
+        // Imprimir a matriz
+        for (String[] linha : matriz) {
+            for (String valor : linha) {
+                System.out.print(valor);
+            }
+            System.out.println();
+        }
     }
+
+    private void preencherMatriz(String[][] matriz, No no, int nivel, int inicio, int fim) {
+        if (no != null) {
+            int meio = (inicio + fim) / 2;
+            matriz[nivel][meio] = String.valueOf(no.getChave());
+            preencherMatriz(matriz, no.getFilhoEsquerdo(), nivel + 1, inicio, meio - 1);
+            preencherMatriz(matriz, no.getFilhoDireito(), nivel + 1, meio + 1, fim);
+        }
     }
 
     public Iterator nos() {
         ArrayList<No> listaNos = new ArrayList<>();
         coletarNos(raiz, listaNos);
         return listaNos.iterator();
-        
+
     }
+
     private void coletarNos(No no, ArrayList<No> listaNos) {
         if (no != null) {
             coletarNos(no.getFilhoEsquerdo(), listaNos);
@@ -197,8 +212,7 @@ private void preencherMatriz(String[][] matriz, No no, int nivel, int inicio, in
         }
     }
 
-
-   public Iterator<Object> elements() {
+    public Iterator<Object> elements() {
         ArrayList<Object> listaElementos = new ArrayList<>();
         coletarElementos(raiz, listaElementos);
         return listaElementos.iterator();
@@ -213,7 +227,7 @@ private void preencherMatriz(String[][] matriz, No no, int nivel, int inicio, in
     }
 
     public int size() {
-        return size;        
+        return size;
     }
 
     public boolean isEmpty() {
