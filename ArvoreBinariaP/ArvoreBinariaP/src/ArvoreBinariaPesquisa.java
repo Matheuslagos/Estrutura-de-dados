@@ -1,6 +1,6 @@
 import java.util.Iterator;
-
-/*CRIAR 2 ARRAYLIST PARA O ITERATOR */
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class ArvoreBinariaPesquisa {
     private No raiz;
@@ -71,7 +71,7 @@ class ArvoreBinariaPesquisa {
         return no;
     }
 
-    public Object remover(Object chave) {
+public Object remover(Object chave) {
     raiz = removerRecursivo(raiz, chave);
     return chave;
 }
@@ -112,7 +112,7 @@ private Object encontrarMenorChave(No no) {
     public void emOrdem(No no) {
         if (no != null) {
             emOrdem(no.getFilhoEsquerdo());
-            System.out.println(no.getChave());
+            System.out.print(" "+no.getChave());
             emOrdem(no.getFilhoDireito());
         }
 
@@ -138,6 +138,7 @@ private Object encontrarMenorChave(No no) {
         }
     }
 
+
     public int profundidade(No no) {
         if(getRaiz()==no){
             return 0;
@@ -158,7 +159,7 @@ private Object encontrarMenorChave(No no) {
     // Inicializar matriz para armazenar os valores dos nós
     String[][] matriz = new String[altura][largura];
     for (String[] linha : matriz) {
-        Arrays.fill(linha, "    ");
+        Arrays.fill(linha, "  ");
     }
 
     // Preencher a matriz com os valores dos nós
@@ -180,7 +181,7 @@ private void preencherMatriz(String[][] matriz, No no, int nivel, int inicio, in
         preencherMatriz(matriz, no.getFilhoEsquerdo(), nivel + 1, inicio, meio - 1);
         preencherMatriz(matriz, no.getFilhoDireito(), nivel + 1, meio + 1, fim);
     }
-}
+    }
 
     public Iterator nos() {
         ArrayList<No> listaNos = new ArrayList<>();
